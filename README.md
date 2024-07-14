@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Hi, I'm HAKYUNG YUN 🙋‍♀️
 ## As a FullStack Engineer 👩‍💻
 
