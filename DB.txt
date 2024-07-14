@@ -1,0 +1,242 @@
+DROP TABLE IF EXISTS contact;
+DROP TABLE IF EXISTS message;
+DROP TABLE IF EXISTS reports;
+DROP TABLE IF EXISTS used_books;
+DROP TABLE IF EXISTS BookMeetings;
+DROP TABLE IF EXISTS reservations;
+DROP TABLE IF EXISTS seats;
+DROP TABLE IF EXISTS concerts;
+DROP TABLE IF EXISTS payment;
+DROP TABLE IF EXISTS cart;
+DROP TABLE IF EXISTS playlists;
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS board;
+DROP TABLE IF EXISTS bookreviews;
+DROP TABLE IF EXISTS readinglist;
+DROP TABLE IF EXISTS members;
+
+
+-- 회원 테이블
+create table members (
+    id varchar(255) primary key,	-- 아이디
+    password varchar(255),			-- 비밀번호
+    name varchar(255),				-- 이름
+    birth varchar(255),				-- 생년월일
+    email varchar(255),  			-- 이메일
+    phone varchar(255),				-- 핸드폰 번호
+    address varchar(255),			-- 주소
+    profile LONGBLOB,				-- 프로필 이미지
+    profile_name varchar(255),  	-- 프로필 이미지 파일 이름
+    isBlocked BOOLEAN DEFAULT FALSE, -- 차단 여부
+    blockUntil DATETIME DEFAULT NULL -- 차단 해제
+);
+
+-- my_sql.py 실행시켜 넣기
+-- 책 정보 테이블
+CREATE TABLE bookinfo (
+    itemid VARCHAR(20) PRIMARY KEY,        -- 아이템 ID
+    title VARCHAR(300),                    -- 책 제목
+    author VARCHAR(255),                   -- 저자
+    categorylarge VARCHAR(255),            -- 대분류 카테고리
+    categorysmall VARCHAR(255),            -- 소분류 카테고리
+    pricestandard INT,                     -- 정가
+    reviewrating FLOAT,                    -- 리뷰 평점
+    publisher VARCHAR(255),                -- 출판사
+    publicationdate VARCHAR(255),          -- 출판일
+    coverimage VARCHAR(255),               -- 표지 이미지 URL
+    description VARCHAR(600)               -- 책 설명
+);
+
+-- 읽기 상태 테이블
+CREATE TABLE readinglist (
+    id INT AUTO_INCREMENT PRIMARY KEY,       -- 고유 ID (자동 증가)
+    userid VARCHAR(255) NOT NULL,            -- 사용자 ID (members 테이블의 id와 연결)
+    bookid VARCHAR(255) NOT NULL,            -- 책 ID (bookinfo 테이블의 itemid와 연결)
+    status ENUM('TO_READ', 'READING', 'READ') NOT NULL, -- 독서 상태 (읽을 예정, 읽는 중, 읽음)
+    addedat TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 추가된 시간 (현재 시간 기본값)
+    FOREIGN KEY (userid) REFERENCES members(id), -- 외래 키 (members 테이블의 id를 참조)
+    FOREIGN KEY (bookid) REFERENCES bookinfo(itemid) -- 외래 키 (bookinfo 테이블의 itemid를 참조)
+);
+
+-- 책 리뷰 테이블
+CREATE TABLE bookreviews (
+    reviewid INT AUTO_INCREMENT PRIMARY KEY, 		 -- 리뷰 고유 ID
+    bookid VARCHAR(255), 							 -- 책 ID
+    memberid VARCHAR(255), 							 -- 리뷰 작성자 ID
+    rating INT CHECK (rating >= 1 AND rating <= 5),  -- 평점 (1~5)
+    comment varchar(255),  							 -- 리뷰 내용
+    createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,   -- 작성 시간
+    FOREIGN KEY (bookid) REFERENCES bookinfo(itemid),
+    FOREIGN KEY (memberid) REFERENCES members(id)
+);
+
+-- 게시글 테이블
+CREATE TABLE board (
+    bnum INT AUTO_INCREMENT PRIMARY KEY,           -- 게시글 번호 (자동 증가)
+    writer VARCHAR(255) NOT NULL,                  -- 작성자
+    title VARCHAR(255) NOT NULL,                   -- 제목
+    contents TEXT NOT NULL,                        -- 내용
+    regdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,   -- 작성일 (현재 시간 기본값)
+    hit INT DEFAULT 0,                             -- 조회수 (기본값 0)
+    filename VARCHAR(255),                         -- 첨부 파일명
+    fileData LONGBLOB,                             -- 첨부 파일 데이터
+    likes INT DEFAULT 0,                           -- 좋아요 수 (기본값 0)
+    report_count INT DEFAULT 0                     -- 신고 수 (기본값 0)
+);
+
+
+-- 댓글 테이블
+CREATE TABLE comments (
+    commentid INT AUTO_INCREMENT PRIMARY KEY,      -- 댓글 ID (자동 증가)
+    boardnum INT,                                  -- 게시글 번호 (board 테이블의 bnum을 참조)
+    memberid VARCHAR(255),                         -- 회원 ID (members 테이블의 id를 참조)
+    content VARCHAR(255),                          -- 댓글 내용
+    createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 작성일 (현재 시간 기본값)
+    FOREIGN KEY (boardnum) REFERENCES board(bnum), -- 외래 키 (board 테이블의 bnum을 참조)
+    FOREIGN KEY (memberid) REFERENCES members(id)  -- 외래 키 (members 테이블의 id를 참조)
+);
+
+
+-- 플레이리스트 테이블
+CREATE TABLE playlists (
+    id INT AUTO_INCREMENT PRIMARY KEY,             -- 재생 목록 ID (자동 증가)
+    name VARCHAR(255) NOT NULL,                    -- 재생 목록 이름
+    books JSON NOT NULL,                           -- 포함된 책들 (JSON 형식)
+    cover_books JSON NOT NULL,                     -- 표지 책들 (JSON 형식)
+    creator_id VARCHAR(255) NOT NULL,              -- 생성자 ID (members 테이블의 id를 참조)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,-- 생성일 (현재 시간 기본값)
+    FOREIGN KEY (creator_id) REFERENCES members(id)-- 외래 키 (members 테이블의 id를 참조)
+);
+
+
+-- 장바구니 테이블
+CREATE TABLE cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,          -- 장바구니 항목 ID (자동 증가)
+    user_id VARCHAR(255),                       -- 사용자 ID (members 테이블의 id를 참조)
+    book_id VARCHAR(255),                       -- 책 ID (bookinfo 테이블의 itemid를 참조)
+    title VARCHAR(300),                         -- 책 제목
+    price DECIMAL(10, 2),                       -- 책 가격
+    coverimage VARCHAR(255),                    -- 책 표지 이미지 URL
+    quantity INT DEFAULT 1,                     -- 수량 (기본값 1)
+    FOREIGN KEY (user_id) REFERENCES members(id), -- 외래 키 (members 테이블의 id를 참조)
+    FOREIGN KEY (book_id) REFERENCES bookinfo(itemid) -- 외래 키 (bookinfo 테이블의 itemid를 참조)
+);
+
+
+-- payment 테이블
+CREATE TABLE payment (
+    id INT AUTO_INCREMENT PRIMARY KEY,             -- 결제 ID (자동 증가)
+    merchant_uid VARCHAR(255) NOT NULL,            -- 상인 UID
+    user_id VARCHAR(255) NOT NULL,                 -- 사용자 ID (members 테이블의 id를 참조)
+    title VARCHAR(255) NOT NULL,                   -- 결제 제목
+    amount INT NOT NULL,                           -- 결제 금액
+    buyer_email VARCHAR(255) NOT NULL,             -- 구매자 이메일
+    buyer_name VARCHAR(255) NOT NULL,              -- 구매자 이름
+    buyer_tel VARCHAR(255) NOT NULL,               -- 구매자 전화번호
+    buyer_addr VARCHAR(255) NOT NULL,              -- 구매자 주소
+    buyer_postcode VARCHAR(255) NOT NULL,          -- 구매자 우편번호
+    status VARCHAR(255) DEFAULT 'pending',         -- 결제 상태 (기본값: 'pending')
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,-- 결제 생성일 (현재 시간 기본값)
+    FOREIGN KEY (user_id) REFERENCES members(id)   -- 외래 키 (members 테이블의 id를 참조)
+);
+
+    
+-- 콘서트 테이블
+CREATE TABLE concerts (
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- 공연 ID (자동 증가)
+    title VARCHAR(255) NOT NULL,              -- 공연 제목
+    speaker VARCHAR(255) NOT NULL,            -- 강연자
+    date DATETIME NOT NULL,                   -- 공연 날짜 및 시간
+    location VARCHAR(255) NOT NULL,           -- 공연 장소
+    imageUrl VARCHAR(255),                    -- 이미지 파일명을 저장하는 열
+    description TEXT NOT NULL,                -- 공연 설명
+    price INT NOT NULL                        -- 티켓 가격
+);
+
+-- 좌석 테이블
+CREATE TABLE seats (
+  id INT AUTO_INCREMENT PRIMARY KEY,         -- 좌석 ID (자동 증가)
+  concert_id INT,                            -- 공연 ID (concerts 테이블의 id를 참조)
+  seat_number VARCHAR(10) NOT NULL,          -- 좌석 번호
+  is_reserved BOOLEAN DEFAULT FALSE,         -- 예약 여부 (기본값: FALSE)
+  FOREIGN KEY (concert_id) REFERENCES concerts(id) -- 외래 키 (concerts 테이블의 id를 참조)
+);
+
+
+-- 예약 테이블
+CREATE TABLE reservations (
+  id INT AUTO_INCREMENT PRIMARY KEY,                  -- 예약 ID (자동 증가)
+  merchant_uid VARCHAR(255) NOT NULL,                 -- 상인 UID
+  user_id VARCHAR(255),                               -- 사용자 ID (members 테이블의 id를 참조)
+  concert_id INT,                                     -- 공연 ID (concerts 테이블의 id를 참조)
+  seats VARCHAR(255),                                 -- 예약된 좌석들 (좌석 번호 목록)
+  total_price INT,                                    -- 총 가격
+  status VARCHAR(50),                                 -- 예약 상태
+  reserved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,    -- 예약 일시 (현재 시간 기본값)
+  FOREIGN KEY (user_id) REFERENCES members(id),       -- 외래 키 (members 테이블의 id를 참조)
+  FOREIGN KEY (concert_id) REFERENCES concerts(id)    -- 외래 키 (concerts 테이블의 id를 참조)
+);
+
+
+-- 독서모임 테이블
+CREATE TABLE BookMeetings (
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- 모임 ID (자동 증가)
+    title VARCHAR(255) NOT NULL,              -- 모임 제목
+    schedule VARCHAR(255) NOT NULL,           -- 일정
+    leader VARCHAR(255) NOT NULL,             -- 리더
+    firstBook VARCHAR(255),                   -- 첫 번째 책
+    imgSrc VARCHAR(255),                      -- 이미지 URL
+    description TEXT                          -- 모임 설명
+);
+
+
+-- 중고책 테이블
+CREATE TABLE used_books (
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- 고유 ID
+    book_id VARCHAR(255),  -- 책의 ID
+    seller_id VARCHAR(255),  -- 판매자 회원 ID
+    book_condition ENUM('high', 'medium', 'low') NOT NULL,  -- 책의 상태 (상, 중, 하)
+    front_image VARCHAR(255),  -- 책의 전면 사진 파일명
+    back_image VARCHAR(255),  -- 책의 후면 사진 파일명
+    price DECIMAL(10, 2),  -- 판매 가격
+    description TEXT,  -- 책에 대한 추가 설명
+    listed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 등록 시간
+    FOREIGN KEY (book_id) REFERENCES bookinfo(itemid),  -- bookinfo 테이블의 참조
+    FOREIGN KEY (seller_id) REFERENCES members(id)  -- members 테이블의 참조
+);
+
+-- 개시글 신고 테이블
+CREATE TABLE reports (
+    id INT AUTO_INCREMENT PRIMARY KEY,             -- 신고 ID (자동 증가)
+    boardnum INT NOT NULL,                         -- 신고된 게시글 번호 (board 테이블의 bnum을 참조)
+    memberid VARCHAR(255) NOT NULL,                -- 신고한 회원 ID (members 테이블의 id를 참조)
+    reported_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,-- 신고 일시 (현재 시간 기본값)
+    FOREIGN KEY (boardnum) REFERENCES board(bnum), -- 외래 키 (board 테이블의 bnum을 참조)
+    FOREIGN KEY (memberid) REFERENCES members(id)  -- 외래 키 (members 테이블의 id를 참조)
+);
+
+
+CREATE TABLE message (
+    id 			 INT AUTO_INCREMENT PRIMARY KEY,    -- 메시지 ID (자동 증가)
+    date 		 VARCHAR(255),                      -- 메시지 날짜
+    message		 VARCHAR(255),                      -- 메시지 내용
+    receiverName VARCHAR(255),                      -- 수신자 이름
+    roomId 		 VARCHAR(255),                      -- 방 ID
+    senderName   VARCHAR(255),                      -- 발신자 이름
+    status ENUM('JOIN', 'LEAVE', 'MESSAGE', 'SENT') -- 상태 (JOIN, LEAVE, MESSAGE, SENT)
+);
+
+
+CREATE TABLE contact (
+  id 		INT AUTO_INCREMENT PRIMARY KEY,            -- 연락 ID (자동 증가)
+  name		VARCHAR(255) NOT NULL,                     -- 이름
+  userId    VARCHAR(255),                              -- 사용자 ID (회원일 경우)
+  email     VARCHAR(255) NOT NULL,                     -- 이메일
+  message   TEXT NOT NULL,                             -- 메시지
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP       -- 생성 일시 (현재 시간 기본값)
+);
+
+-- 회원가입할때 id가 admin 으로 하나 만들고 시작하기
+commit;
+
+
