@@ -1,0 +1,601 @@
+.concert-container {
+  width: 1000px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+  text-align: center;
+   background: white;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   border-radius: 8px;
+   height: 100%;
+   font-family: 'Arial', sans-serif;
+}
+
+.create-concert-button-container {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.create-concert-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+  margin-right: 45%;
+}
+
+.create-concert-button:hover {
+  background-color: #45a049;
+}
+
+
+.concert-container h1 {
+  font-size: 30px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 20px 0;
+  padding: 0;
+  background-color: #f5f3f5;
+  text-align: center;
+  position: relative;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  color: #333;
+  overflow: hidden;
+}
+
+.concert-container h1::before,
+.concert-container h1::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 25%;
+  height: 2px;
+  background-color: #333;
+}
+
+.concert-container h1::before {
+  left: 10%;
+  transform: translateY(-50%);
+}
+
+.concert-container h1::after {
+  right: 10%;
+  transform: translateY(-50%);
+}
+
+.concert-container h1 span {
+  padding: 0 20px;
+  background-color: #f5f3f5;
+  position: relat
+  ive;
+  z-index: 1;
+}
+
+.concert-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  
+}
+
+.concert-item {
+  width: 45%;
+  min-width: 300px;
+  max-width: 400px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s;
+  margin-bottom: 20px;
+}
+
+.concert-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; 
+}
+
+.concert-item h2 {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.concert-item p {
+  font-size: 1em;
+  margin: 5px 0;
+}
+
+.concert-item:hover {
+  transform: scale(1.05);
+}
+
+.concert-details {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
+}
+
+.concert-details-image {
+  width: 100%;
+  height: 380px; 
+  border-radius: 8px;
+  object-fit: cover; 
+}
+
+.concert-details-info h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.concert-details-info p {
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.main-footer {
+  background-color: #b6c9b8;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  margin-top: auto;
+}
+  
+
+.seat {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  background-color: #e0e0e0;
+}
+
+.seat.selected {
+  background-color: #76c7c0;
+}
+
+.seat.reserved {
+  background-color: #ff6b6b;
+  cursor: not-allowed;
+}
+
+.seat-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+
+.seat-selection-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 0 10px; 
+  margin-bottom: 10px;
+}
+
+.seat-selection-header h2 {
+  flex-grow: 1; 
+  text-align: center; 
+  margin: 0; 
+}
+
+.seat-selection-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reservation-info {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Seat.css */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.seat {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  background-color: #e0e0e0;
+}
+
+.seat.selected {
+  background-color: #76c7c0;
+}
+
+.seat.reserved {
+  background-color: #ff6b6b;
+  cursor: not-allowed;
+}
+
+.seat-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+
+.seat-selection-header {
+  display: flex;
+  align-items: center;
+}
+
+.seat-selection-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.seat-reservation-info {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.seat-close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+/* Reservation.css */
+.reservation-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 800px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 20px;
+}
+
+.reservation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.reservation-header h2 {
+  margin: 0;
+}
+
+.reservation-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reservation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 60%;
+}
+
+.reservation-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.reservation-info {
+  width: 200px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.reservation-info h3 {
+  margin-top: 0;
+}
+
+.button-container {
+  display: flex;
+ justify-content: center;
+}
+
+.payment-button, .cancel-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.payment-button {
+  background-color: #b8d7a6;
+  color: white;
+  margin-right: 20px;
+}
+
+.payment-button:hover {
+  background-color: #45a049;
+}
+
+.payment-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.cancel-button {
+  background-color: #ef9a93;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #ffc4ae;
+}
+
+/*CreateConcert.jsx*/
+
+.create-concert-container {
+  width: 800px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+  text-align: center;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  font-family: 'Arial', sans-serif;
+  height: 100%;
+}
+
+.create-concert-container h2 {
+  font-size: 30px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 20px 0;
+  padding: 0;
+  background-color: #f5f3f5;
+  text-align: center;
+  position: relative;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  color: #333;
+  overflow: hidden;
+}
+
+.create-concert-container h2::before,
+.create-concert-container h2::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 25%;
+  height: 2px;
+  background-color: #333;
+}
+
+.create-concert-container h2::before {
+  left: 10%;
+  transform: translateY(-50%);
+}
+
+.create-concert-container h2::after {
+  right: 10%;
+  transform: translateY(-50%);
+}
+
+.create-concert-container h2 span {
+  padding: 0 20px;
+  background-color: #f5f3f5;
+  position: relative;
+  z-index: 1;
+}
+
+.create-concert-container form {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ 
+}
+
+.create-concert-container label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 auto;
+  text-align: left;
+  margin-left: 50px;
+}
+
+.create-concert-container input[type="text"],
+.create-concert-container input[type="datetime-local"],
+.create-concert-container input[type="number"]{
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  margin-left: 20px;
+  text-align: left;
+}
+
+.create-concert-container textarea {
+  width: 75%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  height: 100px;
+  margin-left: 25px;
+}
+
+
+.create-concert-container input[type="file"] {
+  margin-left: 25%;
+  margin-bottom: 20px;
+}
+
+.image-preview {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.image-preview img {
+  max-width: 200px;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.create-concert-b{
+  width: 70px;
+  padding: 8px;
+  background-color: #b8d7a6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.create-concert-b:hover {
+  background-color: #45a049;
+}
+
+.can-concert{
+  width: 70px;
+  padding: 8px;
+  background-color: #ef9a93;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.can-concert:hover {
+  background-color: #ffc4ae;
+}
+
+.edit-concert-button{
+  width: 40px;
+  padding: 5px;
+  background-color: #b8d7a6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.edit-concert-button:hover {
+  background-color: #45a049;
+}
+
+
+.delete-concert-button{
+  width: 40px;
+  padding: 5px;
+  background-color: #ef9a93;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-concert-button:hover {
+  background-color: #ffc4ae;
+}
+
+.seat-select-button{
+  width: 80px;
+  padding: 10px;
+  background-color: skyblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.seat-select-button:hover {
+  background-color: #66b7e1;
+}

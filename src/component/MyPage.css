@@ -1,0 +1,535 @@
+.myPage {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    width: 90%;
+    margin: 0 auto;
+  }
+  
+  .tabs {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    text-align: center;
+  }
+  
+  .tab.active {
+    background-color: #66b7e1;
+    color: #fff;
+  }
+  
+  .tab:hover {
+    background-color: #ddd;
+  }
+  
+  .content {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .main-footer {
+    background-color: #b6c9b8;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: auto;
+  }
+
+  /* User Info */
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.userInfo-img {
+  margin-bottom: 20px;
+}
+
+.userInfo-img img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userInfo p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.userInfo button {
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.userInfo button:first-of-type {
+  background-color: #b8d7a6;
+  color: white;
+  width: 100px;
+  margin-right: 20px;
+}
+
+.userInfo button:first-of-type:hover {
+  background-color: #5c7669;
+}
+
+.userInfo button:last-of-type {
+  background-color: #ef9a93;
+  color: white;
+  width: 100px;
+}
+
+.userInfo button:last-of-type:hover {
+  background-color: #ffc4ae;
+}
+
+.userInfo p.loading {
+  font-size: 18px;
+  color: #888;
+}
+
+.userInfo p.login-required {
+  font-size: 18px;
+  color: #e53935;
+}
+
+/* UserEdit.jsx*/
+.user-edit-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.user-edit-form div {
+  margin-bottom: 15px;
+}
+
+.user-edit-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.user-edit-form input[type="text"],
+.user-edit-form input[type="email"],
+.user-edit-form input[type="file"] {
+  width: calc(100% - 20px);
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.user-edit-form input[type="file"] {
+  padding: 0;
+}
+
+.user-edit-form img {
+  display: block;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+
+.edit-button {
+  display: block;
+  width: 100px;
+  padding: 10px 0;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin:  0 auto;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+/* */
+.page-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.reading-section {
+  margin-bottom: 40px;
+}
+
+.reading-section h2 {
+  font-size: 24px;
+  color: #333;
+  border-bottom: 2px solid #007BFF;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.reading-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.reading-section li {
+  display: flex;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.reading-section li:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.reading-section img {
+  margin-right: 20px;
+  border-radius: 5px;
+}
+
+.reading-section .date {
+  font-size: 12px;
+  color: #888;
+}
+
+/* MyPay */
+/* 결제 정보 섹션 스타일 */
+.payment-section {
+  margin-bottom: 40px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+ padding: 20px;
+}
+
+.payment-section h1 {
+  font-size: 24px;
+  color: #333;
+  border-bottom: 2px solid #007BFF;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.payment-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.payment-section li {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 20px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.payment-section li:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.payment-section p {
+  margin: 5px 0;
+}
+
+.payment-section button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.payment-section button:hover {
+  background-color: #cc0000;
+}
+
+
+
+/* 예약 정보 섹션 스타일 */
+.reservation-section {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+ margin-bottom: 40px;
+}
+
+.reservation-section h1 {
+  font-size: 24px;
+  color: #333;
+  border-bottom: 2px solid #007BFF;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.reservation-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.reservation-section li {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 20px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.reservation-section li:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.reservation-section p {
+  margin: 5px 0;
+}
+
+.reservation-section button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reservation-section button:hover {
+  background-color: #cc0000;
+}
+
+
+
+
+
+/* MyList.jsx */
+.MyList-section {
+ width: 90%;
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 20px;
+}
+
+.MyList-section h1{
+  font-size: 24px;
+  color: #333;
+  border-bottom: 2px solid #007BFF;
+}
+
+.wrapper {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+}
+
+/* 플레이리스트 섹션 스타일 */
+.myList-playlists-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.myList-playlist-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 200px;
+}
+
+.myList-playlist-item:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.myList-playlist-image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
+
+.myList-playlist-image {
+  width: 65px;
+  height: auto;
+  border-radius: 5px;
+  margin: auto;
+}
+
+.myList-playlist-title {
+  font-size: 18px;
+  text-align: center;
+  color: #333;
+  margin: 0;
+}
+
+/* 독서모임 섹션 스타일 */
+.myList-meetings-wrapper {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.myList-meeting-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  width: calc(33.333% - 20px);
+  box-sizing: border-box;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  text-align: center;
+  width: 200px;
+}
+
+.myList-meeting-item:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.myList-meeting-image {
+  width: 150px;
+  height: auto;
+  object-fit: cover;
+  
+}
+
+.myList-meeting-title {
+  font-size: 18px;
+  margin: 0;
+}
+
+/* MyBoard.jsx*/
+.my-board {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.my-board h1 {
+  font-size: 24px;
+  color: #333;
+  border-bottom: 2px solid #007BFF;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.my-board ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 40px;
+}
+
+.my-board ul li {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.my-board ul li:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.my-board p {
+  margin: 5px 0;
+}
+
+.my-board p:first-child {
+  font-weight: bold;
+}
+
+.my-board p:last-child {
+  color: #777;
+}
+
+
+.mypage-pagination{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.mypage-pagination button {
+  background-color: #66b7e1;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s;
+}
+
+.mypage-pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.mypage-pagination button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.mypage-pagination-span {
+  font-size: 1.2em;
+  margin: 0 10px;
+}
